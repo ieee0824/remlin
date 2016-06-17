@@ -16,6 +16,7 @@ import (
 
 var (
 	file   string
+	t      int
 	client = &http.Client{Timeout: time.Duration(10) * time.Second}
 )
 
@@ -62,6 +63,7 @@ func httpGet(url string) error {
 
 func main() {
 	flag.StringVar(&file, "file", "", "file name")
+	flag.IntVar(&t, "t", 5, "timeout time")
 	flag.Parse()
 	urls := []string{}
 
@@ -77,11 +79,11 @@ func main() {
 		}
 	}
 
-	timeout := time.After(5 * time.Second)
+	timeout := time.After(time.Duration(t) * time.Minute)
 	for _, url := range urls {
 		select {
 		case <-timeout:
-			fmt.Println("time out")
+			fmt.Println("timeout")
 		default:
 			fmt.Println(httpGet(url))
 		}
