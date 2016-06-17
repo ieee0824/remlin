@@ -3,10 +3,12 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 	"time"
@@ -27,7 +29,24 @@ func getURLs(file string) []string {
 	return URLs
 }
 
+func isLocal(u string) bool {
+	URL, err := url.Parse(u)
+	if err != nil {
+		return false
+	}
+	if URL.Host != "localhost" {
+		return false
+	}
+	if URL.Host != "127.0.0.1" {
+		return false
+	}
+	return true
+}
+
 func httpGet(url string) error {
+	if !isLocal(url) {
+		return errors.New("Not localhost")
+	}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return err
@@ -51,7 +70,6 @@ func main() {
 	} else {
 		scanner := bufio.NewScanner(os.Stdin)
 		for scanner.Scan() {
-			//urls = append(urls, scanner.Text())
 			t := scanner.Text()
 			t = strings.Trim(t, "\n")
 			t = strings.Trim(t, "\r")
