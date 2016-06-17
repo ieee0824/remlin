@@ -1,5 +1,7 @@
 # remlin
-hot cache.
+hot cache tool.
+
+English | [русский](README.ru.md)
 
 ## install
 
@@ -14,5 +16,5 @@ $ remlin -file {{path/to/urls.json}} -t {{timeout time.}}
 ```
 
 ## Attention
-Accessible host is only localhost.
+Accessible host is only localhost.  
 It is to prevent the unexpected DoS attack.
