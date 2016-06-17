@@ -38,9 +38,6 @@ func isLocal(u string) bool {
 	if URL.Host != "localhost" {
 		return false
 	}
-	if URL.Host != "127.0.0.1" {
-		return false
-	}
 	return true
 }
 
