@@ -77,10 +77,12 @@ func main() {
 	}
 
 	timeout := time.After(time.Duration(t) * time.Second)
+loop:
 	for _, url := range urls {
 		select {
 		case <-timeout:
 			fmt.Println("timeout")
+			break loop
 		default:
 			fmt.Println(httpGet(url))
 		}
