@@ -79,7 +79,7 @@ func main() {
 		}
 	}
 
-	timeout := time.After(time.Duration(t) * time.Minute)
+	timeout := time.After(time.Duration(t) * time.Second)
 	for _, url := range urls {
 		select {
 		case <-timeout:
